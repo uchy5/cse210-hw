@@ -11,17 +11,33 @@ class Program
         int percent = int.Parse(user_answer);
         string Grade_letter = "";
 
-        if (percent >= 90)
+        if (percent >= 95)
             {
-                Grade_letter = "A";
+                Grade_letter = "A+";
             } 
-        else if(percent >= 80)
+        else if (percent >= 90)
             {
-                Grade_letter = "B";
+                Grade_letter = "A-";
+            }
+        else if (percent >= 85)
+            {
+                Grade_letter = "B+";
+            }
+        else if (percent >= 80)
+            {
+                Grade_letter = "B-";
+            }
+        else if (percent >= 75)
+            {
+                Grade_letter ="C+";
             }
         else if (percent >= 70)
             {
-                Grade_letter = "C";
+                Grade_letter = "C-";
+            }
+        else if (percent >= 65)
+            {
+                Grade_letter = "D+"; 
             }
         else if (percent >= 60)
             {
