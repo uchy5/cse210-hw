@@ -41,7 +41,7 @@ class Program
             }
         else if (percent >= 60)
             {
-                Grade_letter = "D";
+                Grade_letter = "D-";
             }
         else
             {
