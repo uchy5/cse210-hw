@@ -4,7 +4,7 @@ using System.IO;
 
 public class Menu
 {
-    private Journal journal = new Journal();
+    public Journal journal = new Journal();
 
     public void Show()
     {
@@ -60,8 +60,8 @@ public class Menu
 
 public class Journal
 {
-    private List<Entry> entries = new List<Entry>();
-    private const string Filename = "journal.csv";
+    public List<Entry> entries = new List<Entry>();
+    public const string Filename = "journal.csv";
 
     public void AddEntry(string prompt)
     {
