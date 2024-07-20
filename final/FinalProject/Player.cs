@@ -1,14 +1,27 @@
 public class Player : Character
 {
-    public string Name { get; private set; }
+    public Player(string name) : base(name) { }
 
-    public Player(string name)
+    public override void Attack(Character target)
     {
-        Name = name;
+        int damage = Stats.GenerateRandomDamage();
+        Console.WriteLine($"{Name} the {CharacterClass} attacks {target.Name} with {damage} damage.");
+        target.Stats.TakeDamage(damage);
     }
 
     public override string GetTitle()
     {
         return $"Player: {Name}";
+    }
+
+    public override void DisplayInfo()
+    {
+        Console.WriteLine($"{GetTitle()} - Class: {CharacterClass}, Health: {Stats.CurrentHealth}/{Stats.MaxHealth}, Attack Power: {Stats.AttackPower}");
+    }
+
+    public void EquipWeapon(Weapon weapon)
+    {
+        Console.WriteLine($"{Name} equips {weapon.Name} - {weapon.Description}");
+        Stats.UpdateAttackPower(weapon.Damage);
     }
 }

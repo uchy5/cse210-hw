@@ -1,32 +1,32 @@
 using System;
+using System.Collections.Generic;
 
 class Program
 {
+    private static readonly Random random = new Random();
+    private static readonly List<Weapon> weapons = new List<Weapon>
+    {
+        new Weapon("Sword", "A sharp blade", 25),
+        new Weapon("Axe", "A heavy axe", 30),
+        new Weapon("Bow", "A long-range bow", 20),
+        new Weapon("Dagger", "A small but deadly dagger", 15)
+    };
+
     static void Main(string[] args)
     {
-        try
-        {
-            Console.Write("Enter player's name: ");
-            string playerName = Console.ReadLine();
+        Console.Write("Enter player's name: ");
+        string playerName = Console.ReadLine();
 
-            Player player = new Player(playerName);
-            Enemy enemy = new Enemy();
-            NPC npc = new NPC();
+        Player player = new Player(playerName);
+        Enemy enemy = new Enemy("Goblin");
+        NPC npc = new NPC("Merchant");
 
-            DisplayCharacterInfo(player);
-            DisplayCharacterInfo(enemy);
-            DisplayCharacterInfo(npc);
-        }
-        catch (InvalidOperationException ex)
-        {
-            Console.WriteLine(ex.Message);
-        }
-    }
+        // Select a random weapon from the list
+        Weapon selectedWeapon = weapons[random.Next(weapons.Count)];
+        player.EquipWeapon(selectedWeapon);
 
-    static void DisplayCharacterInfo(Character character)
-    {
-        Console.WriteLine(character.GetTitle());
-        Console.WriteLine("Assigned class: " + character.GetClass());
-        Console.WriteLine();
+        // Start the battle
+        Battle battle = new Battle(player, enemy, npc);
+        battle.Start();
     }
 }

@@ -1,40 +1,36 @@
-using System;
-using System.Collections.Generic;
-
 public abstract class Character
 {
     private static readonly Random random = new Random();
     private static readonly List<string> allClasses = new List<string> { "Rogue", "Mage", "Warrior", "Ranger", "Healer" };
-    private static readonly List<string> assignedClasses = new List<string>();
-    private string characterClass;
 
-    public Character()
+    public string Name { get; protected set; }
+    public string CharacterClass { get; private set; }
+    public Stats Stats { get; private set; }
+
+    public Character(string name)
     {
-        characterClass = AssignUniqueClass();
+        Name = name;
+        CharacterClass = AssignRandomClass();
+        Stats = new Stats(GenerateRandomHealth(), GenerateRandomAttackPower());
     }
 
-    private string AssignUniqueClass()
+    private static string AssignRandomClass()
     {
-        List<string> availableClasses = new List<string>(allClasses);
-        foreach (string assignedClass in assignedClasses)
-        {
-            availableClasses.Remove(assignedClass);
-        }
-
-        if (availableClasses.Count == 0)
-        {
-            throw new InvalidOperationException("No available classes left to assign.");
-        }
-
-        string selectedClass = availableClasses[random.Next(availableClasses.Count)];
-        assignedClasses.Add(selectedClass);
-        return selectedClass;
+        int index = random.Next(allClasses.Count);
+        return allClasses[index];
     }
 
-    public string GetClass()
+    private static int GenerateRandomHealth()
     {
-        return characterClass;
+        return random.Next(50, 1001); // Random health between 50 and 1000
     }
 
+    private static int GenerateRandomAttackPower()
+    {
+        return random.Next(10, 51); // Random attack power between 10 and 50
+    }
+
+    public abstract void Attack(Character target);
     public abstract string GetTitle();
+    public abstract void DisplayInfo();
 }
